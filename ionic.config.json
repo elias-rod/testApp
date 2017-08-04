@@ -1,6 +1,6 @@
 {
-  "name": "asistencia",
-  "app_id": "0ead0d31",
+  "name": "testApp",
+  "app_id": "8db9605a",
   "proxies": [
     {
       "path": "/api",
