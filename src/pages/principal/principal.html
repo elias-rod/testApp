@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons left>
+      <button ion-button menuToggle icon-only>
+       <ion-icon name="ios-menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-navbar>
+      <ion-title>{{'Asistencias UTN' | translate}}</ion-title>
+    </ion-navbar>
+  </ion-toolbar>
+
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-row>
+    <ion-col class="textoCentrado">     
+    <h2>{{'Bienvenido' | translate}} {{nombre}}</h2>
+        <p *ngIf="administrativas">{{'Desde aqui podras gestionar tus tareas administrativas' | translate}}</p>
+        <p *ngIf="alumnos">{{'Desde aqui podras ver todas tus ausencias en cada materia que curses' | translate}}</p>
+        <p *ngIf="profesor">{{'Desde aqui podras tomar asistencia a los alumnos de tu clase' | translate}}</p>
+
+      <p><button *ngIf="administrativas" ion-button class="btnsize" icon-left  (click)="irAsistencia()"><ion-icon name="ios-list-box"></ion-icon>{{'Administrativas' | translate}} {{nombre}}</button></p>
+      <p><button *ngIf="alumnos" ion-button class="btnsize" icon-left  (click)="irAsistenciaA()"><ion-icon name="ios-list-box"></ion-icon>{{'Ingresar' | translate}} {{nombre}}</button></p>
+      <p><button *ngIf="profesor" ion-button class="btnsize" icon-left  (click)="irAsistenciaP()"><ion-icon name="ios-list-box"></ion-icon>{{'Profesor' | translate}} {{nombre}}</button></p>
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+<ion-menu [content]="mycontent">
+  <ion-content>
+    <ion-list>
+      <ion-item>
+        <ion-thumbnail item-start>
+          <img *ngIf="imagen==''" src="http://ionicframework.com/dist/preview-app/www/assets/img/thumbnail-rotla.png">
+          <img *ngIf="imagen!=''" src="{{imagen}}">
+          <h4>{{nombre}}</h4>
+        </ion-thumbnail>
+        <p>{{'Bienvenido' | translate}}</p>
+        <button ion-button clear item-end (click)="editPerfil();">{{'Editar Perfil' | translate}}</button>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <button *ngIf="archivos"  icon-left ion-item (click)="irArchivos()">
+        <ion-icon item-start name="document"  style="color:#0e6073;"></ion-icon>
+          <div>{{'Archivos' | translate}}</div>        
+        <ion-icon item-end name="ios-arrow-forward"></ion-icon>
+      </button>
+      <button icon-left ion-item (click)="irIdioma()">
+        <ion-icon item-start name="chatbubbles"  style="color:#0e6073;"></ion-icon>
+          <div>{{'Idioma' | translate}}</div>        
+        <ion-icon item-end name="ios-arrow-forward"></ion-icon>
+      </button>
+      <button icon-left ion-item (click)="irLocalizacion()">
+        <ion-icon item-start name="globe"  style="color:#0e6073;"></ion-icon>
+          <div>{{'Localización' | translate}}</div>        
+        <ion-icon item-end name="ios-arrow-forward"></ion-icon>
+      </button>
+      <button *ngIf="asistencias"  icon-left ion-item (click)="irAsistencia()">
+        <ion-icon item-start name="ios-list-box"  style="color:#0e6073;"></ion-icon>
+          <div>{{'Asistencia' | translate}}</div>        
+        <ion-icon item-end name="ios-arrow-forward"></ion-icon>
+      </button>
+      <button  *ngIf="materiasA" icon-left ion-item (click)="materias()">
+        <ion-icon item-start name="ios-book"  style="color:#0e6073;"></ion-icon>
+          <div>{{'Materias' | translate}}</div>        
+        <ion-icon item-end name="ios-arrow-forward"></ion-icon>
+      </button> 
+      <button *ngIf="personas" icon-left ion-item  (click)="persona()">
+        <ion-icon item-start name="ios-contacts"  style="color:#0e6073;"></ion-icon>
+          <div>{{'Personas' | translate}}</div>        
+        <ion-icon item-end name="ios-arrow-forward"></ion-icon>
+      </button> 
+       <button icon-left ion-item  (click)="estadisticas()">
+        <ion-icon item-start name="ios-stats"  style="color:#0e6073;"></ion-icon>
+          <div>{{'Estadisticas' | translate}}</div>        
+        <ion-icon item-end name="ios-arrow-forward"></ion-icon>
+      </button>      
+      <button icon-left ion-item  (click)="acercade()">
+        <ion-icon item-start name="md-school"  style="color:#0e6073;"></ion-icon>
+          <div>{{'Acerca de' | translate}}</div>        
+        <ion-icon item-end name="ios-arrow-forward"></ion-icon>
+      </button> 
+      <button icon-left ion-item  (click)="irReadme()">
+        <ion-icon item-start name="logo-github"  style="color:#0e6073;"></ion-icon>
+          <div>{{'Readme' | translate}}</div>        
+        <ion-icon item-end name="ios-arrow-forward"></ion-icon>
+      </button> 
+      <button icon-left ion-item  (click)="salir()">
+        <ion-icon item-start name="ios-exit"  style="color:#0e6073;"></ion-icon>
+          <div>{{'Salir' | translate}}</div>        
+        <ion-icon item-end name="ios-arrow-forward"></ion-icon>
+      </button> 
+    </ion-list> 
+  </ion-content>
+</ion-menu>
+
+<ion-nav #mycontent [root]="rootPage"></ion-nav>

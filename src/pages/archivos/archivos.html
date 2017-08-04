@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{'Archivos' | translate}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding scrollbar-y-auto>
+
+<button ion-button light (click)="ExportarMaterias()">{{'EXPORTAR MATERIAS' | translate}}</button>
+<button ion-button light (click)="ImportarMaterias()">{{'IMPORTAR MATERIAS' | translate}}</button>
+<ion-card *ngIf="mostrar">
+  <button ion-button light (click)="Limpiar()">{{'LIMPIAR' | translate}}</button>
+  <ion-card-header>
+    {{'Archivo importado en formato JSON' | translate}}
+  </ion-card-header>
+  <ion-card-content>
+    {{objeto}}
+  </ion-card-content>
+</ion-card>
+
+</ion-content>

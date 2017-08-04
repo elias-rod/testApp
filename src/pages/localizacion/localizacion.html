@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{'Localización' | translate}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding scrollbar-y-auto>
+  <ion-card>
+    <ion-card-header>
+      {{'Cambiar localización:' | translate}}
+    </ion-card-header>
+    <ion-card-content *ngIf="mostrar">
+      <button ion-button light (click)="ubicarPosicion(-34.599722, -58.381944, 'DD/MM/YYYY')">{{'ARGENTINA' | translate}}</button>
+      <button ion-button light (click)="ubicarPosicion(38.895, -77.036667, 'MM/DD/YYYY')">{{'USA' | translate}}</button>
+      <button ion-button light (click)="ubicarPosicion(41.893056, 12.482778, 'DD/MM/YYYY')">{{'ITALIA' | translate}}</button>
+      <button ion-button light (click)="ubicarPosicion(-15.793889, -47.882778, 'DD/MM/YYYY')">{{'BRASIL' | translate}}</button>
+    </ion-card-content>
+  </ion-card>
+  <div #map id="map" style="height:100%;"></div>
+  <ion-card>
+    <ion-card-header>
+      {{'Región: ' | translate}} {{region}}
+    </ion-card-header>
+    <ion-card-content>
+      {{'FECHA CORTA: ' | translate}} {{fecha}}
+      {{'FECHA LARGA: ' | translate}} {{fechaLarga}}
+    </ion-card-content>
+  </ion-card>
+</ion-content>

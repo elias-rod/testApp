@@ -1,0 +1,11 @@
+{
+  "name": "asistencia",
+  "app_id": "0ead0d31",
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://localhost/TPsegParcialPPS2017/API/index.php/persona/obtenerTodas"
+    }
+  ],
+  "type": "ionic-angular"
+}

@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{'Asistencia' | translate}}</ion-title>
+  </ion-navbar>
+
+  <ion-toolbar no-border-top color="primary">
+    <button ion-button icon-left color="secondary">
+      <ion-icon name="calendar"></ion-icon>{{'Cambiar fecha' | translate}}
+      <div *ngIf="formatoFecha">
+        <ion-datetime displayFormat={{formatoFecha}} cancelText="CANCELAR" doneText="OK" [(ngModel)]="fecha" (ionChange)="ActualizarDia()"></ion-datetime>
+      </div>
+      </button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding scrollbar-y-auto>
+
+<button ion-button light (click)="ElegirMateriaSegunDiaYProfesor()">{{'MATERIA' | translate}}: {{materiaElegidaNombre}}</button>
+
+<ion-card *ngIf="datosTraidos">
+  <ion-card-content>
+    <form #formListado="ngForm" (ngSubmit)="GuardarAsistencia(formListado)">
+      <ion-list>
+        <ion-item *ngFor="let item of datosTraidos">
+          <p [style.color]="!item.seleccionado && formListado.submitted ? 'red' : null">{{item.apellido}}, {{item.nombre}}</p>
+          <input type="radio" name="{{item.idAlumno}}" value="1" [(ngModel)]="item.asistencia" (click)="item.seleccionado = true" required>A
+          <input type="radio" name="{{item.idAlumno}}" value="2" [(ngModel)]="item.asistencia" (click)="item.seleccionado = true">P
+          <input type="radio" name="{{item.idAlumno}}" value="3" [(ngModel)]="item.asistencia" (click)="item.seleccionado = true">MF
+        </ion-item>
+        <p *ngIf="!formListado.valid && formListado.submitted">{{'No se tomó asistencia a los alumnos marcados con rojo' | translate}}</p>
+      </ion-list>
+      <button type="submit" ion-button light>{{'GUARDAR' | translate}}</button>
+    </form>
+  </ion-card-content>
+</ion-card>
+
+</ion-content>

@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{'Cambio de idioma' | translate}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding scrollbar-y-auto>
+  <ion-card>
+    <ion-card-header>
+      {{'Elija su idioma:' | translate}}
+    </ion-card-header>
+    <ion-card-content>
+      <button ion-button light (click)="ElegirEspanol()">{{'ESPAÑOL' | translate}}</button>
+      <button ion-button light (click)="ElegirIngles()">{{'INGLES' | translate}}</button>
+      <button ion-button light (click)="ElegirItaliano()">{{'ITALIANO' | translate}}</button>
+      <button ion-button light (click)="ElegirPortugues()">{{'PORTUGUES' | translate}}</button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

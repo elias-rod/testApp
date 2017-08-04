@@ -1,0 +1,74 @@
+<ion-header>
+
+  <ion-navbar>
+     <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{'Encuesta' | translate}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div>
+  <ion-card>
+        <ion-card-header>{{pregunta1}}?</ion-card-header>
+        <ion-card-content>          
+        <ion-list radio-group [(ngModel)]="Preg1Rb">               
+          <ion-item>
+            <ion-label>{{'BUENA' | translate}}</ion-label>
+            <ion-radio checked="true" value="Buena" ></ion-radio>            
+          </ion-item>
+          <ion-item>
+            <ion-label>{{'REGULAR' | translate}}</ion-label>
+            <ion-radio  value="Regular"></ion-radio>
+          </ion-item>  
+          <ion-item>
+            <ion-label>{{'MALA' | translate}}</ion-label>
+            <ion-radio value="Mala"></ion-radio>
+          </ion-item>         
+        </ion-list>         
+        </ion-card-content>
+      </ion-card>  
+
+        <ion-card>
+        <ion-card-header>{{pregunta2}}?</ion-card-header>
+        <ion-card-content>          
+        <ion-list radio-group [(ngModel)]="Preg2Rb">               
+          <ion-item>
+            <ion-label>{{'SI' | translate}}</ion-label>
+            <ion-radio  checked="true" value="Si" ></ion-radio>            
+          </ion-item>
+          <ion-item>
+            <ion-label>{{'NO' | translate}}</ion-label>
+            <ion-radio  value="No"></ion-radio>
+          </ion-item>                     
+        </ion-list>         
+        </ion-card-content>
+      </ion-card> 
+
+         <ion-card>
+        <ion-card-header>{{pregunta3}}?</ion-card-header>
+        <ion-card-content>          
+        <ion-list radio-group [(ngModel)]="Preg3Rb">               
+          <ion-item>
+            <ion-label>{{'SI' | translate}}</ion-label>
+            <ion-radio checked="true" value="Sisi" ></ion-radio>            
+          </ion-item>
+          <ion-item>
+            <ion-label>{{'NO' | translate}}</ion-label>
+            <ion-radio value="Nono"></ion-radio>
+          </ion-item>                     
+        </ion-list>         
+        </ion-card-content>
+      </ion-card>
+       <ion-row>
+          <button ion-button block type="submit" (click)="Guardar()">{{'Aceptar' | translate}}</button>
+          <button ion-button block type="cancel" (click)="Cancelar()">{{'Cancelar' | translate}}</button>
+        </ion-row>
+
+</div>
+
+</ion-content>

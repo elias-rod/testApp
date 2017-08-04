@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{'Asistencia' | translate}}</ion-title>
+  </ion-navbar>
+
+  <ion-toolbar no-border-top color="primary">
+    <button ion-button icon-left color="secondary">
+      <ion-icon name="calendar"></ion-icon>{{'Cambiar fecha' | translate}}
+      <div *ngIf="formatoFecha">
+        <ion-datetime displayFormat={{formatoFecha}} cancelText="CANCELAR" doneText="OK" [(ngModel)]="fecha" (ionChange)="ActualizarDia()"></ion-datetime>
+      </div>
+    </button>
+    
+    <ion-segment color="light" [(ngModel)]="filtro">
+      <ion-segment-button value="aula" (click)="ResetearElegidos()">{{'AULA' | translate}}</ion-segment-button>
+      <ion-segment-button value="materia" (click)="ResetearElegidos()">{{'MATERIA' | translate}}</ion-segment-button>
+      <ion-segment-button value="profesor" (click)="ResetearElegidos()">{{'PROFESOR' | translate}}</ion-segment-button>
+      <ion-segment-button value="alumno" (click)="ResetearElegidos()">{{'ALUMNO' | translate}}</ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding scrollbar-y-auto>
+
+  <div [ngSwitch]="filtro">
+    <div *ngSwitchCase="'aula'">
+      <button ion-button light (click)="ElegirAulaQR()">{{'AULA' | translate}} QR: {{aulaElegidaNumero}}</button>
+      <button ion-button light (click)="ElegirAula()">{{'AULA' | translate}}: {{aulaElegidaNumero}}</button>
+      <button ion-button light (click)="ElegirMateriaSegunDiaYAula()" *ngIf="aulaElegidaNumero">{{'MATERIA' | translate}}: {{materiaElegidaNombre}}</button>
+    </div>
+    <div *ngSwitchCase="'materia'">
+      <button ion-button light (click)="ElegirMateria()">{{'MATERIA' | translate}}: {{materiaElegidaNombre}}</button>
+    </div>
+    <div *ngSwitchCase="'profesor'">
+      <button ion-button light (click)="ElegirProfesor()">{{'PROFESOR' | translate}}: {{profesorElegidoNombre}}</button>
+      <button ion-button light (click)="ElegirMateriaSegunDiaYProfesor()" *ngIf="profesorElegidoNombre">MATERIA: {{materiaElegidaNombre}}</button>
+    </div>
+    <div *ngSwitchCase="'alumno'">
+      <button ion-button light (click)="ElegirAlumno()">{{'ALUMNO' | translate}}: {{alumnoElegidoNombre}}</button>
+      <button ion-button light (click)="ElegirMateriaSegunDiaYAlumno()" *ngIf="alumnoElegidoNombre">{{'MATERIA' | translate}}: {{materiaElegidaNombre}}</button>
+    </div>
+  </div>
+
+<ion-card *ngIf="datosTraidos">
+  <ion-card-content>
+    <form #formListado="ngForm" (ngSubmit)="GuardarAsistencia(formListado)">
+      <ion-list>
+        <ion-item *ngFor="let item of datosTraidos">
+          <p [style.color]="!item.seleccionado && formListado.submitted ? 'red' : null">{{item.apellido}}, {{item.nombre}}</p>
+          <input type="radio" name="{{item.idAlumno}}" value="1" [(ngModel)]="item.asistencia" (click)="item.seleccionado = true" required>A
+          <input type="radio" name="{{item.idAlumno}}" value="2" [(ngModel)]="item.asistencia" (click)="item.seleccionado = true">P
+          <input type="radio" name="{{item.idAlumno}}" value="3" [(ngModel)]="item.asistencia" (click)="item.seleccionado = true">MF
+        </ion-item>
+        <p *ngIf="!formListado.valid && formListado.submitted">{{'No se tomó asistencia a los alumnos marcados con rojo' | translate}}</p>
+      </ion-list>
+      <button type="submit" ion-button light>{{'GUARDAR' | translate}}</button>
+    </form>
+  </ion-card-content>
+</ion-card>
+
+</ion-content>

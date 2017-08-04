@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{'Asistencia' | translate}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding scrollbar-y-auto>
+
+<button ion-button light (click)="ElegirMateriaSegunAlumno()">{{'MATERIA' | translate}}: {{materiaElegidaNombre}}</button>
+
+<ion-card *ngIf="datosTraidosDetalle">
+  <ion-card-content>
+    <ion-list>
+      <ion-item-divider color="light">{{'RESUMEN' | translate}}</ion-item-divider>
+      <p ion-item *ngIf="presente" [style.color]="'green'">
+        {{'PRESENTE' | translate}}: {{presente}}
+      </p>
+      <p ion-item *ngIf="ausente" [style.color]="'red'">
+        {{'AUSENTE' | translate}}: {{ausente}}
+      </p>
+      <p ion-item *ngIf="mediaFalta" [style.color]="'orange'">
+        {{'MEDIA FALTA' | translate}}: {{mediaFalta}}
+      </p>
+    </ion-list>
+    <ion-list>
+      <ion-item-divider color="light" >{{'DETALLE' | translate}}</ion-item-divider>
+      <ion-item *ngFor="let item of datosTraidosDetalle" [style.color]="colores[item.asistencia]">
+        {{item.fecha}}
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>
+
+</ion-content>

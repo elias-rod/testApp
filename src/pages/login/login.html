@@ -1,0 +1,47 @@
+
+<ion-content padding scrollbar-y-auto>
+  <ion-card>
+    <img src="assets/img/logo.png"/>
+    <ion-card-content >
+      <ion-card-title class="textoCentrado">
+        {{'Bienvenido al gestor de asistencias' | translate}}
+      </ion-card-title>
+        <form [formGroup]="formLogin">
+    <ion-list inset>
+      <!--AVISO DE ERROR SI LA VARIABLE errorEnFormulario ESTÁ SETEADA EN TRUE-->
+      <p *ngIf="errorFormLogin" style="color: #ea6153;">{{'El nombre es obligatorio y debe contener solo letras hasta un máximo de 30.' | translate}}</p>
+      <ion-item>
+        <ion-label floating>{{'Nombre' | translate}}</ion-label>
+        <ion-input  [(ngModel)]="nombre" type="text" formControlName="nombre" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>{{'Contraseña' | translate}}</ion-label>
+        <ion-input  [(ngModel)]="password" type="password" formControlName="password" ></ion-input>
+      </ion-item>
+      <ion-item >
+        <p style="color: #ea6153;">{{'Loguearse como' | translate}}:</p>
+ 
+        <ion-row>
+           
+            
+          <button ion-button small   icon-left color="danger" (click)="Rellenar(3)">{{'Administrador' | translate}}</button>
+          <button ion-button small icon-left color="danger" (click)="Rellenar(1)">{{'Alumno' | translate}}</button>
+          <button ion-button small  icon-left color="danger" (click)="Rellenar(2)">{{'Profesor' | translate}}</button>
+          <button ion-button small  icon-left color="danger" (click)="Rellenar(4)">{{'Administrativo' | translate}}</button>
+           
+        </ion-row>
+      </ion-item>
+       <ion-item >
+         <ion-row>
+                     
+            <button ion-button  medium   icon-left (click)="Registrarse()">{{'Registro' | translate}}</button>
+            <button ion-button  medium icon-left (click)="loguear()">{{'Login' | translate}}</button>
+            <!--<button ion-button medium icon-left  (click)="LoguearConGoogle()"><ion-icon name="logo-googleplus"></ion-icon></button>-->
+          <!--<a href='#' (click)="downloadCSV()">Download CSV</a>-->
+        </ion-row>
+      </ion-item>
+    </ion-list>
+  </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
