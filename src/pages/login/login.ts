@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, ToastController } from 'ionic-angular';
 import { NativeAudio } from '@ionic-native/native-audio';
 import { Vibration } from '@ionic-native/vibration';
 
@@ -34,6 +34,7 @@ export class LoginPage {
   numeroRegional;
   monedaRegional;
   map : GoogleMap;
+
   arrayCodigosRegionales = {
     US : ['en-US', 'USD'],
     AR : ['es-AR', 'ARS'],
@@ -41,10 +42,12 @@ export class LoginPage {
     IT : ['it-IT', 'EUR'],
     CN : ['zh-CN', 'CNY']
   };
+  
   codigoRegional = 'AR';
 
   constructor(public navCtrl: NavController,
   private nativeAudio: NativeAudio,
+    public toastCtrl: ToastController,
   public loadingCtrl: LoadingController,
   private vibration: Vibration,
   public translate: TranslateService,
@@ -78,6 +81,12 @@ export class LoginPage {
 
   ElegirItaliano(){
     this.translate.setDefaultLang('it');
+    this.vibration.vibrate(100);
+    this.nativeAudio.play('yay');
+  }
+
+  ElegirChino(){
+    this.translate.setDefaultLang('ch');
     this.vibration.vibrate(100);
     this.nativeAudio.play('yay');
   }
