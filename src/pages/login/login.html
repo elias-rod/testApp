@@ -8,14 +8,14 @@
   <ion-card>
     <ion-card-header>
       {{'IDIOMA' | translate}}
+    </ion-card-header>
+    <ion-card-content>
       <div>
         <button ion-button light (click)="ElegirEspanol()">{{'ESPAÑOL' | translate}}</button>
         <button ion-button light (click)="ElegirIngles()">{{'INGLES' | translate}}</button>
         <button ion-button light (click)="ElegirItaliano()">{{'ITALIANO' | translate}}</button>
         <button ion-button light (click)="ElegirPortugues()">{{'PORTUGUES' | translate}}</button>
       </div>
-    </ion-card-header>
-    <ion-card-content>
       {{'TEXTOPRUEBA' | translate}}
     </ion-card-content>
   </ion-card>
@@ -25,14 +25,16 @@
     </ion-card-header>
     <ion-card-content>
       <div>
-        <button ion-button light (click)="ubicarPosicion(-34.599722, -58.381944, 'DD/MM/YYYY')">{{'ARGENTINA' | translate}}</button>
-        <button ion-button light (click)="ubicarPosicion(38.895, -77.036667, 'MM/DD/YYYY')">{{'USA' | translate}}</button>
-        <button ion-button light (click)="ubicarPosicion(41.893056, 12.482778, 'DD/MM/YYYY')">{{'ITALIA' | translate}}</button>
-        <button ion-button light (click)="ubicarPosicion(-15.793889, -47.882778, 'DD/MM/YYYY')">{{'BRASIL' | translate}}</button>
+        <button ion-button light (click)="UbicarPosicion(39.905, 116.391389)">{{'CHINA' | translate}}</button>
+        <button ion-button light (click)="UbicarPosicion(38.895, -77.036667)">{{'USA' | translate}}</button>
+        <button ion-button light (click)="UbicarPosicion(41.893056, 12.482778)">{{'ITALIA' | translate}}</button>
+        <button ion-button light (click)="UbicarPosicion(-15.793889, -47.882778)">{{'BRASIL' | translate}}</button>
+        <button ion-button light (click)="UbicarPosicion(-34.599722, -58.381944)">{{'ARGENTINA' | translate}}</button>
       </div>
-        {{'FECHA SIN REGIONALIZAR: ' | translate}}} {{fecha}}<br>
-        {{'FECHA CORTA: ' | translate}} {{fechaCorta}}<br>
-        {{'FECHA LARGA: ' | translate}} {{fechaLarga}}      
+        {{'FECHA CORTA' | translate}}<br>{{fechaCortaRegional}}<br>
+        {{'FECHA LARGA' | translate}}<br>{{fechaLargaRegional}}<br>
+        {{'MONEDA REGIONAL' | translate}}<br>{{monedaRegional}}<br>
+        {{'NUMERO REGIONAL' | translate}}<br>{{numeroRegional}}<br>
     </ion-card-content>
   </ion-card>
   <div #map id="map" style="height:100%;"></div>

@@ -49,7 +49,8 @@ import {
  LatLng,
  CameraPosition,
  MarkerOptions,
- Marker
+ Marker,
+ Geocoder
 } from '@ionic-native/google-maps';
 
 //PARA FIREBASE
@@ -154,7 +155,8 @@ export function createTranslateLoader(http: Http) {
     File,
     GooglePlus,
     GoogleMaps,
-    Globalization
+    Globalization,
+    Geocoder
   ]
 })
 export class AppModule {}

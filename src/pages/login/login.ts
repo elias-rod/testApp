@@ -1,18 +1,21 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { NativeAudio } from '@ionic-native/native-audio';
 import { Vibration } from '@ionic-native/vibration';
 
 import { TranslateService } from '@ngx-translate/core';
 
 import {
- GoogleMaps,
- GoogleMap,
- GoogleMapsEvent,
- LatLng,
- CameraPosition,
- MarkerOptions,
- Marker
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  LatLng,
+  CameraPosition,
+  MarkerOptions,
+  Marker,
+  Geocoder, 
+  GeocoderRequest, 
+  GeocoderResult
 } from '@ionic-native/google-maps';
 
 import { Globalization } from '@ionic-native/globalization';
@@ -24,19 +27,29 @@ import { Globalization } from '@ionic-native/globalization';
 
 export class LoginPage {
   spinner;
-  fecha;
-  fechaCorta;
-  fechaLarga;
+  fechaCortaRegional;
+  opcionesFechaLarga;
+  fechaLargaRegional;
+  numero;
+  numeroRegional;
+  monedaRegional;
   map : GoogleMap;
+  arrayCodigosRegionales = {
+    US : ['en-US', 'USD'],
+    AR : ['es-AR', 'ARS'],
+    BR : ['pt-BR', 'BRL'],
+    IT : ['it-IT', 'EUR'],
+    CN : ['zh-CN', 'CNY']
+  };
+  codigoRegional = 'AR';
 
   constructor(public navCtrl: NavController,
-  public toastCtrl: ToastController,
   private nativeAudio: NativeAudio,
   public loadingCtrl: LoadingController,
   private vibration: Vibration,
   public translate: TranslateService,
   private googleMaps: GoogleMaps,
-  private globalization: Globalization) {
+  private geocoder: Geocoder) {
     this.nativeAudio.preloadSimple('yay', 'assets/sounds/yay.wav');
     this.nativeAudio.preloadSimple('error', 'assets/sounds/error.mp3');
     
@@ -47,16 +60,8 @@ export class LoginPage {
         });
       }
     );
-
-    this.globalization.dateToString(new Date(),{ formatLength: 'short', selector: 'date and time' })
-    .then((date)=>{
-      this.fechaCorta = date.value;
-    });
-
-    this.globalization.dateToString(new Date(),{ formatLength: 'long', selector: 'date and time' })
-    .then((date)=>{
-      this.fechaLarga = date.value;
-    });
+    this.opcionesFechaLarga = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    this.numero = 123456.789;
   }
 
   ElegirEspanol(){
@@ -82,6 +87,7 @@ export class LoginPage {
     this.vibration.vibrate(100);
     this.nativeAudio.play('yay');
   }
+
   DesecharYCrearSpinner(){
     this.spinner.dismiss();
     this.translate.get('Cargando...').subscribe(
@@ -103,26 +109,32 @@ export class LoginPage {
     });
   }
 
-  ubicarPosicion(lat, lng, formato){
+  CambiarEjemplos(){
+    this.fechaCortaRegional = (new Date()).toLocaleString(this.arrayCodigosRegionales[this.codigoRegional][0]);
+    this.fechaLargaRegional = (new Date()).toLocaleString(this.arrayCodigosRegionales[this.codigoRegional][0], this.opcionesFechaLarga);
+    this.numeroRegional = this.numero.toLocaleString(this.arrayCodigosRegionales[this.codigoRegional][0]);
+    this.monedaRegional = this.numero.toLocaleString(this.arrayCodigosRegionales[this.codigoRegional][0], { style: 'currency', currency: this.arrayCodigosRegionales[this.codigoRegional][1]});
+  }
+
+  UbicarPosicion(lat, lng){
     let latLng = new LatLng(lat, lng);
+
     this.map.clear();
+
     let position: CameraPosition = {
       target: latLng,
       zoom: 3,
       tilt: 0
     }
     this.map.moveCamera(position);
-    let markerOptions: MarkerOptions = {
-      position: latLng
-    };
+
+    let markerOptions: MarkerOptions = {position: latLng};
 
     this.spinner.present();
+
     let marker = this.map.addMarker(markerOptions)
     .then((marker: Marker) => {
       marker.showInfoWindow();
-      this.DesecharYCrearSpinner();
-      this.vibration.vibrate(500);
-      this.nativeAudio.play('yay');
       this.translate.get(['Formato regional cambiado'])
       .subscribe(
         translatedText => {
@@ -132,6 +144,17 @@ export class LoginPage {
         });
         toast.present();
       });
+    });
+
+    let geocoderRequest: GeocoderRequest = {position: latLng};
+
+    this.geocoder.geocode(geocoderRequest)
+    .then((results: GeocoderResult) => {
+      this.codigoRegional = results[0].countryCode;
+      this.CambiarEjemplos();
+      this.DesecharYCrearSpinner();
+      this.vibration.vibrate(500);
+      this.nativeAudio.play('yay');
     });
   }
 }
